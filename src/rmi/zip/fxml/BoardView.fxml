@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="viewPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="rmi.zip.client.BoardViewController">
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="40.0" spacing="20.0">
+               <children>
+                  <Label text="작성자 :" />
+                  <Label fx:id="lblWriter" />
+                  <Label text="작 성 날 짜 :">
+                     <HBox.margin>
+                        <Insets left="400.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Label fx:id="lblDate" />
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="40.0" spacing="20.0">
+               <children>
+                  <Label prefHeight="19.0" prefWidth="59.0" text="제   목 :" />
+                  <TextField fx:id="tfTitle" editable="false" prefHeight="29.0" prefWidth="661.0" />
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="412.0" prefWidth="800.0" spacing="20.0">
+               <children>
+                  <Label text="내   용 :" />
+                  <TextArea fx:id="taContent" editable="false" prefHeight="262.0" prefWidth="666.0" />
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </HBox>
+         </children>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="70.0" spacing="30.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="btnEdit" mnemonicParsing="false" onAction="#btnEditClicked" text="수  정">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </Button>
+            <Button fx:id="btnDel" mnemonicParsing="false" onAction="#btnDelClicked" text="삭  제" />
+            <Button fx:id="btnList" mnemonicParsing="false" onAction="#btnListClicked" text="리스트보기" />
+         </children>
+      </HBox>
+   </bottom>
+   <top>
+      <Label prefHeight="80.0" text="게시글 내용 보기" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+   </top>
+   <padding>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+   </padding>
+</BorderPane>
