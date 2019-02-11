@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+	
+<sqlMapConfig>
+	<!-- 
+		DB와 연결하는 정보를 properties파일에 설정해 놓고
+		이 properties파일을 읽어와 설정한다.
+	 -->
+	 
+	 <!-- properties파일 읽어오기  -->
+	 <properties resource="db.properties"/> 	 
+	 
+	 <!-- 옵션 설정  -->
+	 <settings cacheModelsEnabled="true"
+	 		   enhancementEnabled="true"
+	 		   maxRequests="32"
+	 		   maxSessions="10"
+	 		   maxTransactions="5"
+	 		   useStatementNamespaces="true"/>
+	 
+	 <!--typeAlias를 이곳에   -->
+	 
+	 <!--
+	 	DB와 연결을 처리하는 부분 
+	 	==> db.properties의 내용을 이용하여 설정한다. 
+	   -->		   
+	 <transactionManager type="JDBC">
+	 	<dataSource type="SIMPLE">
+	 		<property name="JDBC.Driver" value="${driver}"/><!--db.properties에있는 driver읽어옴 ,oracle.jdbc.driver.OracleDriver직접 써도 된다. 그런데 이렇게 쓰면 값이 고정되니까 properties만들어서 이용 -->
+	 		<property name="JDBC.ConnectionURL" value="${url}"/>
+	 		<property name="JDBC.Username" value="${user}"/>
+	 		<property name="JDBC.Password" value="${pass}"/>
+	 	</dataSource>
+	 </transactionManager>	   
+	   
+	   <!--
+	   		처리할 SQL문은 다른 xml문서로 따로 작성한 후 그 xml문서를 
+	   		아래와 같이 연결하여 사용한다.
+	   		
+	   		형식) <sqlMap resource = "경로명/파일명.xml">
+	   		경로명 mvc.ibatis는 패키지명 자체가 아니라 mvc안에있는 ibatis이다.
+	   		.이 경로라는 소리 따라서 / 써준다.
+	     -->
+	   	<sqlMap resource = "rmi/zip/ibatis/fxBoard.xml"/><!-- . 찍지 말기 / 찍어라 , 패키지명이 하나의 폴더라고 생각하고 / 찍어라   -->
+	   	
+</sqlMapConfig>
+
+
+
+
+	

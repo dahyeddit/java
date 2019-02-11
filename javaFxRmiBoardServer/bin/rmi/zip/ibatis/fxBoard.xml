@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE sqlMap
+	PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"
+	"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="fxBoard">
+	<typeAlias alias="fxBoardVo" type="rmi.zip.vo.FxBoardVO"/>
+	
+	<insert id="insertBoard" parameterClass="fxBoardVo">
+		INSERT INTO JDBC_BOARD (BOARD_NO, BOARD_TITLE, BOARD_WRITER, BOARD_DATE, BOARD_CNT, BOARD_CONTENT)
+					VALUES (BOARD_SEQ.NEXTVAL, #board_title#, #board_writer#, SYSDATE, 0, #board_content#) 
+	</insert>
+	
+	<delete id="deleteBoard" parameterClass="int">
+		DELETE FROM JDBC_BOARD WHERE BOARD_NO = #board_no#
+	</delete>
+
+	<update id="updateBoard" parameterClass="fxBoardVo">
+		UPDATE JDBC_BOARD SET 
+					 BOARD_TITLE = #board_title# 
+					,BOARD_DATE = SYSDATE 
+					,BOARD_CONTENT = #board_content# 
+		WHERE BOARD_NO = #board_no#
+	</update>
+	
+	<update id="setCountIncrement" parameterClass="int">
+		UPDATE JDBC_BOARD SET 
+					BOARD_CNT = BOARD_CNT + 1
+					WHERE BOARD_NO = #board_no#
+	</update>
+	
+	<select id="getAllBoardList" resultClass="fxBoardVo">
+		SELECT BOARD_NO, BOARD_TITLE, BOARD_WRITER,  
+				TO_CHAR(BOARD_DATE, 'YYYY-MM-DD') BOARD_DATE, BOARD_CNT, BOARD_CONTENT 
+		FROM JDBC_BOARD 
+		ORDER BY BOARD_NO DESC
+	</select>
+	
+	<select id="getBoard" resultClass="fxBoardVo" parameterClass="int">
+		SELECT BOARD_NO, BOARD_TITLE, BOARD_WRITER,  
+				TO_CHAR(BOARD_DATE, 'YYYY-MM-DD') BOARD_DATE, BOARD_CNT, BOARD_CONTENT 
+		FROM JDBC_BOARD 
+		WHERE BOARD_NO = #board_no#
+	</select>
+	
+	<!-- parameterClass에 있는 값을 SQL문의 '컬럼명'등으로 사용할 때는 $기호를 사용한다. -->
+	<select id="getSearchBoardList" parameterClass="map" resultClass="fxBoardVo">
+		SELECT BOARD_NO, BOARD_TITLE, BOARD_WRITER, 
+					TO_CHAR(BOARD_DATE, 'YYYY-MM-DD') BOARD_DATE, BOARD_CNT, BOARD_CONTENT 
+		FROM JDBC_BOARD
+		WHERE $search_field$ LIKE '%' || #search_word# || '%' 
+		ORDER BY BOARD_NO DESC 
+	</select>
+
+</sqlMap>
